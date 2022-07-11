@@ -35,7 +35,7 @@ The Operator gathers aggregates metrics about managed resources.
 | Scope     | Metrics                        | Description                                                                                                                                                 | Type  |
 |-----------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|-------|
 | Namespace | FlinkDeployment.Count          | Number of managed FlinkDeployment instances per namespace                                                                                                   | Gauge |
-| Namespace | FlinkDeployment.<Status>.Count | Number of managed FlinkDeployment resources per <Status> per namespace. <Status> can take values from: READY, DEPLOYED_NOT_READY, DEPLOYING, MISSING, ERROR | Gauge |
+| Namespace | FlinkDeployment._Status_.Count | Number of managed FlinkDeployment resources per _Status_ per namespace. _Status_ can take values from: READY, DEPLOYED_NOT_READY, DEPLOYING, MISSING, ERROR | Gauge |
 | Namespace | FlinkSessionJob.Count          | Number of managed FlinkSessionJob instances per namespace                                                                                                   | Gauge |
 
 ## System Metrics
