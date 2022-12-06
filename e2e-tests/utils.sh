@@ -141,7 +141,7 @@ function check_operator_log_for_errors {
   operator_pod_name=$(get_operator_pod_name)
   echo "Operator namespace: ${operator_pod_namespace} pod: ${operator_pod_name}"
 
-  logs="kubectl logs -n ${operator_pod_namespace} ${operator_pod_name}
+  local cmd="kubectl logs -n ${operator_pod_namespace} ${operator_pod_name}
     | grep -e '\[\s*ERROR\s*\]'
     | grep -v 'Exception while listing jobs' `#https://issues.apache.org/jira/browse/FLINK-30146`
     | grep -v 'Failed to submit a listener notification task' `#https://issues.apache.org/jira/browse/FLINK-30147`
@@ -150,8 +150,8 @@ function check_operator_log_for_errors {
     | grep -v 'Error while patching status' `#https://issues.apache.org/jira/browse/FLINK-30283`
     ${ignore}"
 
-  echo "Executing: ${logs}"
-  errors=$(eval ${logs} || true)
+  echo "Filter command: ${cmd}"
+  errors=$(eval ${cmd} || true)
 
   if [ -z "${errors}" ]; then
     echo "No errors in log files."
