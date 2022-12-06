@@ -37,7 +37,7 @@ public class DeploymentFailedException extends RuntimeException {
 
     public DeploymentFailedException(ContainerStateWaiting stateWaiting) {
         super(stateWaiting.getMessage());
-        this.reason = stateWaiting.getReason();
+        this.reason = stateWaiting.getReason() + "/" + stateWaiting.getMessage();
     }
 
     public DeploymentFailedException(String message, String reason) {
