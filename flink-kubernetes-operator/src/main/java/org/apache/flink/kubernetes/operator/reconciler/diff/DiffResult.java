@@ -17,6 +17,7 @@
 
 package org.apache.flink.kubernetes.operator.reconciler.diff;
 
+import io.fabric8.kubernetes.api.model.Pod;
 import org.apache.flink.annotation.Experimental;
 import org.apache.flink.kubernetes.operator.api.diff.DiffType;
 import org.apache.flink.kubernetes.operator.api.diff.Diffable;
@@ -66,8 +67,13 @@ public class DiffResult<T> {
 
         diffList.forEach(
                 diff -> {
-                    lhsBuilder.append(diff.getFieldName(), diff.getLeft());
-                    rhsBuilder.append(diff.getFieldName(), diff.getRight());
+                    if (diff.getLeft() instanceof Pod) {
+                        lhsBuilder.append(diff.getFieldName(), "before");
+                        rhsBuilder.append(diff.getFieldName(), "after");
+                    } else {
+                        lhsBuilder.append(diff.getFieldName(), diff.getLeft());
+                        rhsBuilder.append(diff.getFieldName(), diff.getRight());
+                    }
                 });
 
         return String.format("%s differs from %s", lhsBuilder.build(), rhsBuilder.build());
